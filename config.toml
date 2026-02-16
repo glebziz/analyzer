@@ -1,0 +1,45 @@
+[nfqueue]
+qnum = 300
+qlen = 25
+packet_size = 65535
+
+[processors.tcp_stream]
+syn_retransmit_limit = 10
+stream_ttl = 10
+
+[processors.tcp_stream.set]
+family = "inet"
+table = "fw"
+name = "tcp_stream_set"
+
+[processors.tcp_stream.set6]
+family = "inet"
+table = "fw"
+name = "tcp_stream_set6"
+
+[processors.domain]
+domains_list = "domains.list"
+
+[processors.domain.set]
+family = "inet"
+table = "fw"
+name = "domain_set"
+
+[processors.domain.set6]
+family = "inet"
+table = "fw"
+name = "domain_set6"
+
+[processors.retransmit]
+limit = 10
+conn_ttl = 10
+
+[processors.retransmit.set]
+family = "inet"
+table = "fw"
+name = "retransmit_set"
+
+[processors.retransmit.set6]
+family = "inet"
+table = "fw"
+name = "retransmit_set6"
