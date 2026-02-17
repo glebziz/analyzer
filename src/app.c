@@ -115,31 +115,39 @@ app_t *app_init(const config_t *cfg) {
         goto errL;
     }
 
+    if (cfg->tcp_stream_processor.set_inited && nftables_add_set(app->nft, cfg->tcp_stream_processor.set)) {
+        log_error("failed to add ip_set %s/%s to nftables", cfg->tcp_stream_processor.set.table,
+                  cfg->tcp_stream_processor.set.name);
+        goto errL;
+    }
+
+    if (cfg->tcp_stream_processor.set6_inited && nftables_add_set(app->nft, cfg->tcp_stream_processor.set6)) {
+        log_error("failed to add ip_set %s/%s to nftables", cfg->tcp_stream_processor.set6.table,
+                  cfg->tcp_stream_processor.set6.name);
+        goto errL;
+    }
+
     if (cfg->retransmit_processor.set_inited && nftables_add_set(app->nft, cfg->retransmit_processor.set)) {
         log_error("failed to add ip_set %s/%s to nftables", cfg->retransmit_processor.set.table,
                   cfg->retransmit_processor.set.name);
-        perror("add_set");
         goto errL;
     }
 
     if (cfg->retransmit_processor.set6_inited && nftables_add_set(app->nft, cfg->retransmit_processor.set6)) {
         log_error("failed to add ip_set %s/%s to nftables", cfg->retransmit_processor.set6.table,
                   cfg->retransmit_processor.set6.name);
-        perror("add_set");
         goto errL;
     }
 
     if (cfg->domain_processor.set_inited && nftables_add_set(app->nft, cfg->domain_processor.set)) {
         log_error("failed to add ip_set %s/%s to nftables", cfg->domain_processor.set.table,
                   cfg->domain_processor.set.name);
-        perror("add_set");
         goto errL;
     }
 
     if (cfg->domain_processor.set6_inited && nftables_add_set(app->nft, cfg->domain_processor.set6)) {
         log_error("failed to add ip_set %s/%s to nftables", cfg->domain_processor.set6.table,
                   cfg->domain_processor.set6.name);
-        perror("add_set");
         goto errL;
     }
 
